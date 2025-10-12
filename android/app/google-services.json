@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "205110129715",
+    "project_id": "captain-drive-webbing",
+    "storage_bucket": "captain-drive-webbing.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205110129715:android:f946e58f0a4efa4f761f46",
+        "android_client_info": {
+          "package_name": "com.example.captain_drive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbEa037QoGupp-qhkEKCOtSj_b4ySiLdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

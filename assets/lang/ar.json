@@ -1,0 +1,52 @@
+{
+
+  "onboarding_title_1": "هل تريد الوصول بسرعة؟",
+  "onboarding_description_1":" WAYA ستصل لأي مكان بأسرع وقت مع.",
+  "onboarding_title_2": "أفضل السائقين المؤهلين.",
+  "onboarding_description_2": "نختار كل سائق للتأكد من أنه مؤهل لقيادتك.",
+  "onboarding_title_3": "أكثر الطرق أماناً للوصول.",
+  "onboarding_description_3": "لدينا قواعد صارمة لضمان سلامتك.",
+  "onboarding_title_4": "WAY إرشادات مجتمع",
+  "onboarding_description_4": "السلامة واحترام الجميع\n عامل الجميع بلطف واحترام\n ساهم في الحفاظ على سلامة الجميع\n اتبع القوانين",
+  "skip": "تخطى",
+  "next": "التالي",
+  "start": "ابدأ",
+
+  "please_select": "يرجى الاختيار",
+  "select_choice": "اختر واحدة من الخيارات للانتقال إلى الصفحة التالية.",
+  "captain": "كابتن",
+  "passenger": "راكب",
+
+  "login": "تسجيل الدخول",
+  "email_placeholder": "البريد الإلكتروني أو رقم الهاتف",
+  "password_placeholder": "كلمة المرور",
+  "forgot_password": "نسيت كلمة المرور",
+  "dont_have_account": "ليس لديك حساب؟",
+  "login_button": "تسجيل الدخول",
+
+
+  "sign_up": "سجل",
+  "already_have_account": "هل لديك حساب بالفعل؟",
+  "phone": "رقم الهاتف",
+
+
+  "confirm_password": "تأكيد كلمة المرور",
+  "or": "أو",
+  "login_with": "تسجيل الدخول باستخدام",
+  "selectLanguage": "اختر اللغة",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "signUp": "إنشاء حساب",
+  "welcomeBack": "مرحبا بعودتك!",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "dontHaveAccount": "ليس لديك حساب؟",
+  "name": "الاسم",
+  "pleaseEnterYourName": "الرجاء إدخال اسمك",
+  "pleaseEnterYourEmail": "الرجاء إدخال بريدك الإلكتروني",
+  "pleaseEnterAValidEmailAddress": "الرجاء إدخال عنوان بريد إلكتروني صحيح",
+  "pleaseEnterYourPassword": "الرجاء إدخال كلمة المرور الخاصة بك",
+  "passwordMustBeAtLeast6CharactersLong": "يجب أن تكون كلمة المرور مكونة من 6 أحرف على الأقل",
+  "alreadyHaveAnAccount": "هل لديك حساب بالفعل؟"
+}

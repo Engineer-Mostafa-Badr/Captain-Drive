@@ -1,0 +1,53 @@
+{
+
+  "onboarding_title_1": "Do you want to go Faster?",
+  "onboarding_description_1": "With WAYA you will go to any place as fast as possible",
+  "onboarding_title_2": "Best qualified Captains.",
+  "onboarding_description_2": "We choose every captain to see if he is qualified to drive you.",
+  "onboarding_title_3": "Safest way to arrive.",
+  "onboarding_description_3": "We have strict driving rules to ensure your safety.",
+  "onboarding_title_4": "WAY Community Guidelines",
+  "onboarding_description_4": "Safety and Respect for All\nTreat everyone with kindness and respect\nContribute to maintaining everyone’s safety\nFollow the rules",
+  "skip": "Skip",
+  "next": "Next",
+  "start": "Start",
+
+
+
+  "please_select": "Please Select:",
+  "select_choice": "Select one of the choices to transfer you to the next page.",
+  "captain": "Captain",
+  "passenger": "Passenger",
+
+  "email_placeholder": "Email or phone number",
+  "password_placeholder": "Password",
+  "forgot_password": "Forgot Password",
+  "dont_have_account": "Don’t have an account?",
+  "login_button": "Login",
+
+  "sign_up": "Sign Up",
+  "already_have_account": "Already Have Account?",
+  "phone": "Phone Number",
+  "confirm_password": "Confirm Password",
+  "or": "Or",
+  "login_with": "Login with",
+
+  "selectLanguage": "Select Language",
+  "english": "English",
+  "arabic": "العربية",
+  "login": "Login",
+  "signUp": "Sign Up",
+  "welcomeBack": "Welcome Back!",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password?",
+  "dontHaveAccount": "Don't have an account?",
+  "name": "Name",
+  "pleaseEnterYourName": "Please enter your name",
+  "pleaseEnterYourEmail": "Please enter your email",
+  "pleaseEnterAValidEmailAddress": "Please enter a valid email address",
+  "pleaseEnterYourPassword": "Please enter your password",
+  "passwordMustBeAtLeast6CharactersLong": "Password must be at least 6 characters long",
+  "alreadyHaveAnAccount": "Already have an account?"
+
+}
