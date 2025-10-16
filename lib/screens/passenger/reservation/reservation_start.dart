@@ -23,7 +23,7 @@ class _ReservationStartState extends State<ReservationStart> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    passengerCubit.get(context).getReservation();
+    PassengerCubit.get(context).getReservation();
     loadLanguage();
   }
 
@@ -54,11 +54,11 @@ class _ReservationStartState extends State<ReservationStart> {
       return 'غير معروف';
     }
 
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var reservationData =
-            passengerCubit.get(context).getReservationModel?.data;
+            PassengerCubit.get(context).getReservationModel?.data;
 
         // Check if the data is not null and not empty
         if (reservationData == null) {
@@ -86,7 +86,8 @@ class _ReservationStartState extends State<ReservationStart> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const LayoutScreen()));
+                                        builder: (context) =>
+                                            const LayoutScreen()));
                               },
                               icon: const Icon(Icons.arrow_back_ios)),
                         ],
@@ -134,7 +135,8 @@ class _ReservationStartState extends State<ReservationStart> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ChooseDateTimeScreen(),
+                              builder: (context) =>
+                                  const ChooseDateTimeScreen(),
                             ),
                           );
                         },
@@ -179,7 +181,8 @@ class _ReservationStartState extends State<ReservationStart> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const LayoutScreen()));
+                                        builder: (context) =>
+                                            const LayoutScreen()));
                               },
                               icon: const Icon(Icons.arrow_back_ios)),
                           const SizedBox(width: 125),
@@ -317,8 +320,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       const Text("date :       "),
                                       Text(
-                                        request.time.split(' ')[0] ??
-                                            'Unknown',
+                                        request.time.split(' ')[0] ?? 'Unknown',
                                         textAlign: TextAlign.end,
                                         style: const TextStyle(
                                           color: Color(0XFF919191),
@@ -351,8 +353,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       const Text("time :       "),
                                       Text(
-                                        request.time.split(' ')[1] ??
-                                            'Unknown',
+                                        request.time.split(' ')[1] ?? 'Unknown',
                                         textAlign: TextAlign.end,
                                         style: const TextStyle(
                                           color: Color(0XFF919191),
@@ -507,7 +508,7 @@ class _ReservationStartState extends State<ReservationStart> {
                           title:
                               isArabic ? 'الغاء الحجز' : 'cancel reservation',
                           function: () {
-                            passengerCubit.get(context).cancelReservation(
+                            PassengerCubit.get(context).cancelReservation(
                                 reservation_request_id: request.id);
                           }),
                       fallback: (context) =>

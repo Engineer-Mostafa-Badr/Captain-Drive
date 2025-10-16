@@ -1,12 +1,13 @@
-import 'package:captain_drive/business_logic/captain_auth/captain_forget_password_cubit/captain_forget_password_cubit.dart';
+// ignore_for_file: avoid_print
+
+import '../../business_logic/captain_auth/captain_forget_password_cubit/captain_forget_password_cubit.dart';
+import 'package:captain_drive/screens/captain/captain_check_mail.dart';
 import 'package:captain_drive/components/constant.dart';
 import 'package:captain_drive/components/widget.dart';
-import 'package:captain_drive/screens/captain/captain_check_mail.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../localization/localization_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/local/cach_helper.dart';
+import 'package:flutter/material.dart';
 
 class CaptainForgetPasswordScreen extends StatefulWidget {
   const CaptainForgetPasswordScreen({super.key});
@@ -25,17 +26,15 @@ class _CaptainForgetPasswordScreenState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // Load saved language code from SharedPreferences
     loadLanguage();
   }
 
   String? languageCode; // Variable to hold the language code
 
   Future<void> loadLanguage() async {
-    languageCode = await CacheHelper.getData(key: 'languageCode') ??
-        'en'; // Default to 'en' if not set
+    languageCode = await CacheHelper.getData(key: 'languageCode') ?? 'en';
+    // ignore: use_build_context_synchronously
     context.read<LocalizationCubit>().loadLanguage(languageCode!);
   }
 

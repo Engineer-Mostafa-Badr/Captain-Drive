@@ -13,8 +13,20 @@ class PlaceDirections {
     required this.totalDistance,
     required this.totalDuration,
   });
-
   factory PlaceDirections.fromJson(Map<String, dynamic> json) {
+    if (json['routes'] == null || (json['routes'] as List).isEmpty) {
+      print("⚠️ No routes found in Directions API response: $json");
+      return PlaceDirections(
+        bounds: LatLngBounds(
+          northeast: const LatLng(0, 0),
+          southwest: const LatLng(0, 0),
+        ),
+        polylinePoints: [],
+        totalDistance: '0',
+        totalDuration: '0',
+      );
+    }
+
     final data = Map<String, dynamic>.from(json['routes'][0]);
 
     final northeast = data['bounds']['northeast'];
@@ -24,19 +36,23 @@ class PlaceDirections {
       southwest: LatLng(southwest['lat'], southwest['lng']),
     );
 
-    late String distance;
-    late String duration;
+    String distance = '';
+    String duration = '';
 
-    if ((data['legs'] as List).isNotEmpty) {
+    if (data['legs'] != null && (data['legs'] as List).isNotEmpty) {
       final leg = data['legs'][0];
       distance = leg['distance']['text'];
       duration = leg['duration']['text'];
     }
 
+    final overviewPolyline = data['overview_polyline'];
+    final points = overviewPolyline != null
+        ? PolylinePoints().decodePolyline(overviewPolyline['points'])
+        : <PointLatLng>[];
+
     return PlaceDirections(
       bounds: bounds,
-      polylinePoints:
-          PolylinePoints().decodePolyline(data['overview_polyline']['points']),
+      polylinePoints: points,
       totalDistance: distance,
       totalDuration: duration,
     );

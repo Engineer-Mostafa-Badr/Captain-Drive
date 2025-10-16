@@ -25,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     // Load saved language code from SharedPreferences
     loadLanguage();
-    passengerCubit.get(context).getUserData();
+    PassengerCubit.get(context).getUserData();
   }
 
   String? languageCode;
@@ -153,7 +153,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const ChangePasswordScreen()));
+                            builder: (context) =>
+                                const ChangePasswordScreen()));
                   },
                   child: Container(
                     width: double.infinity,
@@ -298,13 +299,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: GestureDetector(
                   onTap: () {
-                    CacheHelper.removeDate(key: 'token').then((value) {
+                    CacheHelper.removeData(key: 'token').then((value) {
                       if (value) {
                         print(userToken);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginPassengerScreen()));
+                                builder: (context) =>
+                                    const LoginPassengerScreen()));
                       }
                     });
                     showSnackbar(
@@ -352,13 +354,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  CacheHelper.removeDate(key: 'token').then((value) {
+                  CacheHelper.removeData(key: 'token').then((value) {
                     if (value) {
                       print(userToken);
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginPassengerScreen()));
+                              builder: (context) =>
+                                  const LoginPassengerScreen()));
                     }
                   });
                 },

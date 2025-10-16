@@ -48,7 +48,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   Widget build(BuildContext context) {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {
         if (state is SuccessForgetPasswordState) {
           if (state.forgetPassword.status) {
@@ -58,7 +58,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const PasswordChangedSuccessfullyScreen()));
+                    builder: (context) =>
+                        const PasswordChangedSuccessfullyScreen()));
           } else {
             showToast(message: state.forgetPassword.message, color: Colors.red);
           }
@@ -318,8 +319,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                                         if (_formKey.currentState!.validate()) {
                                           print(newPasswordController.text);
                                           print(confirmPasswordController.text);
-                                          passengerCubit
-                                              .get(context)
+                                          PassengerCubit.get(context)
                                               .newPassword(
                                                   email: widget.email,
                                                   password:

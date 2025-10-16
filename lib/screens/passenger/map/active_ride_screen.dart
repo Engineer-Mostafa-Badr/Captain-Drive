@@ -22,13 +22,13 @@ class _ActiveRideScreenState extends State<ActiveRideScreen> {
   void initState() {
     super.initState();
     _startOfferCheck();
-    passengerCubit.get(context).getActiveRide();
+    PassengerCubit.get(context).getActiveRide();
   }
 
   void _startOfferCheck() {
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
       // Fetch latest offers and request model
-      passengerCubit.get(context).getActiveRide();
+      PassengerCubit.get(context).getActiveRide();
       setState(() {});
     });
   }
@@ -64,7 +64,7 @@ class _ActiveRideScreenState extends State<ActiveRideScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {
         if (state is PassengerGetActiveRideError) {
           // ScaffoldMessenger.of(context).showSnackBar(
@@ -73,7 +73,7 @@ class _ActiveRideScreenState extends State<ActiveRideScreen> {
         }
       },
       builder: (context, state) {
-        var cubit = passengerCubit.get(context).getActiveRideModel?.data;
+        var cubit = PassengerCubit.get(context).getActiveRideModel?.data;
 
         // if (state is PassengerGetActiveRideLoading) {
         //   return Scaffold(
@@ -167,7 +167,7 @@ class _ActiveRideScreenState extends State<ActiveRideScreen> {
                     ),
                     const SizedBox(height: 20),
                     statusText == 'لقد وصل السائق'
-                        ? BlocConsumer<passengerCubit, PassengerStates>(
+                        ? BlocConsumer<PassengerCubit, PassengerStates>(
                             listener: (context, state) {
                               if (state is PassengerSetToDestinationSuccess) {
                                 Navigator.pushReplacement(
@@ -184,8 +184,7 @@ class _ActiveRideScreenState extends State<ActiveRideScreen> {
                                       is! PassengerSetToDestinationLoading,
                                   builder: (context) => ElevatedButton(
                                     onPressed: () {
-                                      passengerCubit
-                                          .get(context)
+                                      PassengerCubit.get(context)
                                           .setToDestination();
                                     }, // Add chat functionality
                                     child: const Row(

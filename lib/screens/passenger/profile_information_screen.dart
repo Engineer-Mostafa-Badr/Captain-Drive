@@ -60,7 +60,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   @override
   void initState() {
     super.initState();
-    passengerCubit.get(context).getUserData();
+    PassengerCubit.get(context).getUserData();
     loadLanguage();
   }
 
@@ -149,8 +149,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
     return BlocProvider(
-      create: (context) => passengerCubit()..getUserData(),
-      child: BlocConsumer<passengerCubit, PassengerStates>(
+      create: (context) => PassengerCubit()..getUserData(),
+      child: BlocConsumer<PassengerCubit, PassengerStates>(
         listener: (context, state) {
           if (state is SuccessUpdateState) {
             if (state.updateModel.status) {
@@ -164,7 +164,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           }
         },
         builder: (context, state) {
-          var cubit = passengerCubit.get(context);
+          var cubit = PassengerCubit.get(context);
           var userModel = cubit.userModel;
 
           return Form(
@@ -241,8 +241,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        passengerCubit
-                                                .get(context)
+                                        PassengerCubit.get(context)
                                                 .userModel
                                                 ?.data
                                                 .name
@@ -314,7 +313,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(
                                         userModel?.data.email ?? 'loading...',
-                                        style: const TextStyle(color: Colors.black54),
+                                        style: const TextStyle(
+                                            color: Colors.black54),
                                       ),
                                     ),
                                   ),
@@ -349,7 +349,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                       padding: const EdgeInsets.all(10.0),
                                       child: Text(
                                         userModel?.data.phone ?? 'loading...',
-                                        style: const TextStyle(color: Colors.black54),
+                                        style: const TextStyle(
+                                            color: Colors.black54),
                                       ),
                                     ),
                                   ),
@@ -416,14 +417,13 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                         title: isArabic ? 'تعديل' : 'Edit',
                                         function: () {
                                           // Call updateUserData to update user information
-                                          passengerCubit
-                                              .get(context)
+                                          PassengerCubit.get(context)
                                               .updateProfile(
-                                                image,
-                                                name: nameTextController.text,
-                                                email: emailController.text,
-                                                phone: phoneController.text,
-                                              );
+                                            image,
+                                            name: nameTextController.text,
+                                            email: emailController.text,
+                                            phone: phoneController.text,
+                                          );
                                         }),
                                     fallback: (context) => const Center(
                                         child: CircularProgressIndicator()),
@@ -446,7 +446,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   }
 
   Widget personalInformation(state, context) {
-    var cubit = passengerCubit.get(context);
+    var cubit = PassengerCubit.get(context);
     var userModel = cubit.userModel;
 
     if (userModel == null) {
@@ -497,16 +497,15 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      passengerCubit
-                          .get(context)
+                      PassengerCubit.get(context)
                           .userModel!
                           .data
                           .name
                           .toString(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style:
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(
                       height: 10,
@@ -697,12 +696,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     onTap: () {
                       // Call updateUserData to update user information
                       if (_formKey.currentState!.validate()) {
-                        passengerCubit.get(context).updateProfile(
-                              image,
-                              name: nameTextController.text,
-                              email: emailController.text,
-                              phone: phoneController.text,
-                            );
+                        PassengerCubit.get(context).updateProfile(
+                          image,
+                          name: nameTextController.text,
+                          email: emailController.text,
+                          phone: phoneController.text,
+                        );
                       }
                     },
                     child: Container(

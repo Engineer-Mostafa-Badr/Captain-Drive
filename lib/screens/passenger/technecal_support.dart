@@ -22,7 +22,7 @@ class _TechenecalSupportScreenState extends State<TechenecalSupportScreen> {
   void initState() {
     super.initState();
     // Fetch numbers admin when the screen initializes
-    passengerCubit.get(context).getNumbersAdmin();
+    PassengerCubit.get(context).getNumbersAdmin();
     loadLanguage();
   }
 
@@ -36,10 +36,10 @@ class _TechenecalSupportScreenState extends State<TechenecalSupportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = passengerCubit.get(context);
+        var cubit = PassengerCubit.get(context);
         var numbersList = cubit.getNumbersAdminModel?.data.numbers ?? [];
         bool isArabic = LocalizationCubit.get(context).isArabic();
 
@@ -104,7 +104,8 @@ class _TechenecalSupportScreenState extends State<TechenecalSupportScreen> {
                 ),
               ),
             ),
-            fallback: (context) => const Center(child: CircularProgressIndicator()),
+            fallback: (context) =>
+                const Center(child: CircularProgressIndicator()),
           ),
         );
       },

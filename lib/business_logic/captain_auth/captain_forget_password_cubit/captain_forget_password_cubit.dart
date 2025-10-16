@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:captain_drive/data/models/captain_forget_password_model.dart';

@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print
-
+import 'dart:async';
 import 'package:captain_drive/firebase_options.dart';
 import 'package:captain_drive/screens/captain/captain_layout_screen.dart';
 import 'package:captain_drive/screens/captain/chat/services/firebase_notifications.dart';
@@ -37,64 +37,60 @@ import 'localization/localization_cubit.dart';
 import 'network/remote/dio_helper.dart';
 import 'network/share/bloc_observer.dart';
 
-void main() async {
-  Bloc.observer = const SimpleBlocObserver();
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    name: 'way_ios',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // await FirebaseAppCheck.instance.activate(
-  //   // You can also use a `ReCaptchaEnterpriseProvider` provider instance as an
-  //   // argument for `webProvider`
-  //   webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
-  //   // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
-  //   // your preferred provider. Choose from:
-  //   // 1. Debug provider
-  //   // 2. Safety Net provider
-  //   // 3. Play Integrity provider
-  //   androidProvider: AndroidProvider.debug,
-  //   // Default provider for iOS/macOS is the Device Check provider. You can use the "AppleProvider" enum to choose
-  //   // your preferred provider. Choose from:
-  //   // 1. Debug provider
-  //   // 2. Device Check provider
-  //   // 3. App Attest provider
-  //   // 4. App Attest provider with fallback to Device Check provider (App Attest provider is only available on iOS 14.0+, macOS 14.0+)
-  //   appleProvider: AppleProvider.appAttest,
-  // );
-  DioHelper.init();
-  await CacheHelper.init();
-  Widget widget;
-  dynamic onBoarding = CacheHelper.getData(key: 'onBoarding');
-  dynamic token = CacheHelper.getData(key: 'token');
-  dynamic captientoken = CacheHelper.getData(key: 'Captientoken');
+  Bloc.observer = const SimpleBlocObserver();
 
-  print(token);
-  userToken = token;
-  if (onBoarding != null) {
-    if (captientoken != null) {
-      widget = const SplashScreen(screen: CaptainLayoutScreen());
-    } else if (token != null) {
-      widget = const SplashScreen(screen: LayoutScreen());
+  try {
+    // ✅ Initialize Firebase
+    await Firebase.initializeApp(
+      name: 'way_ios',
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('✅ Firebase initialized');
+
+    // ✅ Initialize SharedPreferences safely
+    await CacheHelper.init();
+    print('✅ SharedPreferences initialized');
+
+    // ✅ Initialize Dio
+    DioHelper.init();
+    print('✅ Dio initialized');
+
+    // ✅ Initialize Services
+    setupGetIt();
+    await FirebaseNotifications().initNotifications();
+
+    // ✅ Get local data
+    dynamic onBoarding = CacheHelper.getData(key: 'onBoarding');
+    dynamic token = CacheHelper.getData(key: 'token');
+    dynamic captientoken = CacheHelper.getData(key: 'Captientoken');
+
+    print('📦 onBoarding: $onBoarding');
+    print('📦 token: $token');
+    print('📦 Captientoken: $captientoken');
+
+    userToken = token;
+
+    // ✅ Determine start screen
+    Widget startWidget;
+    if (onBoarding != null) {
+      if (captientoken != null) {
+        startWidget = const SplashScreen(screen: CaptainLayoutScreen());
+      } else if (token != null) {
+        startWidget = const SplashScreen(screen: LayoutScreen());
+      } else {
+        startWidget = const SplashScreen(screen: SelectedScreen());
+      }
     } else {
-      widget = const SplashScreen(screen: SelectedScreen());
+      startWidget = const SplashScreen(screen: OnboardingScreen());
     }
-  } else {
-    widget = const SplashScreen(screen: OnboardingScreen());
+
+    runApp(MyApp(startWidget: startWidget));
+  } catch (e, stack) {
+    print('💥 Error during initialization: $e');
+    print(stack);
   }
-
-  print("onsoosoasosa");
-  print(onBoarding);
-  print(userToken);
-  print(token);
-  print(captientoken);
-
-  setupGetIt();
-  await FirebaseNotifications().initNotifications();
-
-  runApp(MyApp(
-    startWidget: widget,
-  ));
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -103,7 +99,6 @@ final GlobalKey<ScaffoldMessengerState> snackbarKey =
 
 class MyApp extends StatelessWidget {
   final Widget startWidget;
-
   const MyApp({super.key, required this.startWidget});
 
   @override
@@ -111,15 +106,14 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => passengerCubit()
-              ..getAllOffers()
-              ..getActivities()
-              ..getUserData()),
-        BlocProvider<MapsCubit>(
+          create: (context) => PassengerCubit()
+            ..getAllOffers()
+            ..getActivities()
+            ..getUserData(),
+        ),
+        BlocProvider(
           create: (context) => MapsCubit(
-            MapsRepository(
-              PlacesWebservices(), // Pass an instance of PlacesWebservices
-            ), // Make sure to instantiate MapsRepository
+            MapsRepository(PlacesWebservices()),
           ),
         ),
         BlocProvider(
@@ -129,9 +123,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CaptainGetDriverReservationCubit()..getCaptainDriverReservation(),
         ),
-        BlocProvider(
-          create: (context) => CaptainCancelReservationOfferCubit(),
-        ),
+        BlocProvider(create: (context) => CaptainCancelReservationOfferCubit()),
         BlocProvider(
           create: (context) =>
               CaptainGetReservationCubit()..getCaptainReservation(),
@@ -139,12 +131,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => CaptainGetMessageCubit()..getCaptainMessage(),
         ),
-        BlocProvider(
-          create: (context) => CaptainMakeReservationOfferCubit(),
-        ),
-        BlocProvider(
-          create: (context) => DriverSetCurrentLocationCubit(),
-        ),
+        BlocProvider(create: (context) => CaptainMakeReservationOfferCubit()),
+        BlocProvider(create: (context) => DriverSetCurrentLocationCubit()),
         BlocProvider(
           create: (context) =>
               DriverGetReservationOfferCubit()..getCaptainOffer(),
@@ -159,34 +147,12 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               CaptainGetActiveRideCubit()..getCaptainActiveRides(),
         ),
-        BlocProvider(
-          create: (context) => CaptainGetRequestsCubit()..getCaptainRequests(),
-        ),
-        BlocProvider(
-          create: (context) => CaptainGetOfferCubit()..getCaptainRideOffer(),
-        ),
-        BlocProvider(
-          create: (context) =>
-              CaptainGetActiveRideCubit()..getCaptainActiveRides(),
-        ),
-        BlocProvider(
-          create: (context) => CaptainMakeOfferCubit(),
-        ),
-        BlocProvider(
-          create: (context) => SetArriveRideCubit(),
-        ),
-        BlocProvider(
-          create: (context) => SetRideCompleteCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CaptainCancelOfferCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CaptainCancelRideOfferCubit(),
-        ),
-        BlocProvider(
-          create: (context) => CameraModelCubit(),
-        ),
+        BlocProvider(create: (context) => CaptainMakeOfferCubit()),
+        BlocProvider(create: (context) => SetArriveRideCubit()),
+        BlocProvider(create: (context) => SetRideCompleteCubit()),
+        BlocProvider(create: (context) => CaptainCancelOfferCubit()),
+        BlocProvider(create: (context) => CaptainCancelRideOfferCubit()),
+        BlocProvider(create: (context) => CameraModelCubit()),
       ],
       child: BlocBuilder<LocalizationCubit, Map<String, String>>(
         builder: (context, localizedStrings) {
@@ -196,15 +162,12 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'WAY',
             theme: ThemeData(
-                fontFamily: 'Noto', scaffoldBackgroundColor: backGroundColor
-                //primaryColor: primaryColor,
-                //hintColor: threeColor,
-                //primarySwatch: Colors.teal
-                ),
-            locale: Locale(context
-                .read<LocalizationCubit>()
-                .currentLanguage), // Set the locale based on the current language
-
+              fontFamily: 'Noto',
+              scaffoldBackgroundColor: backGroundColor,
+            ),
+            locale: Locale(
+              context.read<LocalizationCubit>().currentLanguage,
+            ),
             home: startWidget,
           );
         },

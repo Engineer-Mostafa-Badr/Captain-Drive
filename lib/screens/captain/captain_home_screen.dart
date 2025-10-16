@@ -57,8 +57,8 @@ class _CaptainHomeScreenState extends State<CaptainHomeScreen> {
         .getCaptainMessage(); // Assuming this method triggers the state change
 
     // Listen to the state and capture the result
-    await Future.delayed(
-        const Duration(milliseconds: 500)); // Small delay to ensure state update
+    await Future.delayed(const Duration(
+        milliseconds: 500)); // Small delay to ensure state update
 
     final state = captainGetMessageCubit.state;
     if (state is CaptainGetMessageSuccess) {
@@ -84,7 +84,7 @@ class _CaptainHomeScreenState extends State<CaptainHomeScreen> {
             listener: (context, state) {
               if (state is RemoveDriverSuccess) {
                 if (state.removeDriverModel.status) {
-                  CacheHelper.removeDate(key: 'token').then((value) {
+                  CacheHelper.removeData(key: 'token').then((value) {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -262,7 +262,8 @@ class _CaptainHomeScreenState extends State<CaptainHomeScreen> {
                                     ),
                                     Text(
                                       isArabic ? 'مصر' : 'Egypt',
-                                      style: const TextStyle(color: primaryColor),
+                                      style:
+                                          const TextStyle(color: primaryColor),
                                     ),
                                   ],
                                 ),

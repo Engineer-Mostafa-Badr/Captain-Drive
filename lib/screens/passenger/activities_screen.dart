@@ -18,7 +18,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
   @override
   void initState() {
     super.initState();
-    passengerCubit.get(context).getActivities();
+    PassengerCubit.get(context).getActivities();
     loadLanguage();
   }
 
@@ -59,11 +59,11 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                BlocConsumer<passengerCubit, PassengerStates>(
+                BlocConsumer<PassengerCubit, PassengerStates>(
                   listener: (context, state) {},
                   builder: (context, state) {
                     var activitiesData =
-                        passengerCubit.get(context).getActivitiesModel?.data;
+                        PassengerCubit.get(context).getActivitiesModel?.data;
 
                     // Check if the data is not null and not empty
                     if (activitiesData == null || activitiesData.isEmpty) {

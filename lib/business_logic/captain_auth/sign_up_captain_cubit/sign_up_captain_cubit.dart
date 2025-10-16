@@ -1,11 +1,15 @@
+// ignore_for_file: avoid_print
+
+import 'package:captain_drive/data/models/capatain_sign_up_model.dart';
+import 'package:captain_drive/network/remote/dio_helper.dart';
+import 'package:captain_drive/network/end_points.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'dart:io';
-import 'package:captain_drive/data/models/capatain_sign_up_model.dart';
-import 'package:captain_drive/network/end_points.dart';
-import 'package:captain_drive/network/remote/dio_helper.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../shared/local/cach_helper.dart';
 
 part 'sign_up_captain_state.dart';
 
@@ -16,7 +20,7 @@ class SignUpCaptainCubit extends Cubit<SignUpCaptainState> {
 
   CaptainSignUpModel? signUpCaptainModel;
 
-  void driverSignUp({
+  Future<void> driverSignUp({
     required BuildContext context,
     required String name,
     required String email,
@@ -43,6 +47,7 @@ class SignUpCaptainCubit extends Cubit<SignUpCaptainState> {
     emit(SignUpCaptainLoading());
 
     try {
+      // 🧾 إعداد البيانات
       Map<String, dynamic> formDataMap = {
         'name': name,
         'email': email,
@@ -59,7 +64,7 @@ class SignUpCaptainCubit extends Cubit<SignUpCaptainState> {
         'plates_number': platesNumber,
       };
 
-      // Attach files to the formDataMap
+      // 📦 رفع الصور
       formDataMap['picture'] = await MultipartFile.fromFile(
         picture.path,
         filename: picture.path.split('/').last,
@@ -93,18 +98,19 @@ class SignUpCaptainCubit extends Cubit<SignUpCaptainState> {
         filename: criminalRecord.path.split('/').last,
       );
 
-      // Create FormData object from map
+      // 🧩 تكوين الـ FormData
       FormData formData = FormData.fromMap(formDataMap);
 
-      // Make API call using DioHelper
+      // 📤 إرسال الطلب
+      print('📤 Sending Multipart POST to: $SIGNUP');
       var response = await DioHelper.postImageData(
         url: SIGNUP,
         data: formData,
       );
 
+      // 🧠 التحقق من الرد
       if (response != null && response.data != null) {
         print('Data Register: ${jsonEncode(response.data)}');
-
         signUpCaptainModel = CaptainSignUpModel.fromJson(response.data);
 
         print('Parsed status: ${signUpCaptainModel?.status}');
@@ -112,12 +118,26 @@ class SignUpCaptainCubit extends Cubit<SignUpCaptainState> {
         print('Parsed message: ${signUpCaptainModel?.message}');
         print('Parsed user name: ${signUpCaptainModel?.data?.user?.name}');
 
+        // ✅ حفظ التوكن بعد التسجيل
+        final token = signUpCaptainModel?.data?.token;
+        if (token != null && token.isNotEmpty) {
+          await CacheHelper.saveData(key: 'token', value: token);
+          DioHelper.dio?.options.headers['Authorization'] = 'Bearer $token';
+          print('✅ Token saved locally and applied globally');
+        } else {
+          print('⚠️ Token is null or empty, cannot save');
+        }
+
+        if (isClosed) return;
         emit(SignUpCaptainSuccess(signUpCaptainModel: signUpCaptainModel!));
       } else {
+        if (isClosed) return;
         emit(SignUpCaptainFailure(message: 'Null response received'));
       }
-    } catch (error) {
-      print(error.toString());
+    } catch (error, stackTrace) {
+      print('💥 Exception: $error');
+      print(stackTrace);
+      if (isClosed) return;
       emit(SignUpCaptainFailure(message: error.toString()));
     }
   }

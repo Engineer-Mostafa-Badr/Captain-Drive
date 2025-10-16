@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../localization/localization_cubit.dart';
 import '../../shared/local/cach_helper.dart';
+import '../captain/Login_captain_screen.dart';
 
 class SelectedScreen extends StatefulWidget {
   const SelectedScreen({super.key});
@@ -82,37 +83,44 @@ class _SelectedScreenState extends State<SelectedScreen> {
                                   .read<LocalizationCubit>()
                                   .translate('select_choice') ??
                               'Select one of the choices to transfer you to the next page.',
-                          style: const TextStyle(color: Colors.white, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
                         ),
                       ),
                       const SizedBox(
                         height: 200,
                       ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => LoginCaptainScreen()));
-                      //   },
-                      //   child: Container(
-                      //     width: double.infinity,
-                      //     height: 60,
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(30),
-                      //       color: Colors.white,
-                      //     ),
-                      //     child: Center(
-                      //       child: Directionality(
-                      //         textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
-                      //         child: Text(
-                      //           context.read<LocalizationCubit>().translate('captain') ?? 'Captain',
-                      //           style: TextStyle(fontSize: 20),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const LoginCaptainScreen()));
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.white,
+                          ),
+                          child: Center(
+                            child: Directionality(
+                              textDirection: isArabic
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
+                              child: Text(
+                                context
+                                        .read<LocalizationCubit>()
+                                        .translate('captain') ??
+                                    'Captain',
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 20,
                       ),

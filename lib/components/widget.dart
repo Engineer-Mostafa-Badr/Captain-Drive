@@ -111,10 +111,10 @@ Widget phoneFormField({required TextEditingController phone}) {
           ),
         ],
       ),
-      SizedBox(
+      const SizedBox(
         height: 10,
       ),
-      Container(
+      SizedBox(
         height: 45,
         child: Row(
           children: [

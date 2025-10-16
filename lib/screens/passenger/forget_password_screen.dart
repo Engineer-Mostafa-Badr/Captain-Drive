@@ -1,15 +1,16 @@
+// ignore_for_file: avoid_print
+
+import 'package:captain_drive/screens/passenger/authintaction/Login_passenger_screen.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:captain_drive/screens/passenger/check_mail_screen.dart';
 import 'package:captain_drive/components/constant.dart';
 import 'package:captain_drive/components/widget.dart';
-import 'package:captain_drive/screens/passenger/authintaction/Login_passenger_screen.dart';
-import 'package:captain_drive/screens/passenger/check_mail_screen.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../localization/localization_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared/local/cach_helper.dart';
-import 'cubit/cubit.dart';
+import 'package:flutter/material.dart';
 import 'cubit/states.dart';
+import 'cubit/cubit.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -25,7 +26,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadLanguage();
   }
@@ -33,8 +33,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   String? languageCode; // Variable to hold the language code
 
   Future<void> loadLanguage() async {
-    languageCode = await CacheHelper.getData(key: 'languageCode') ??
-        'en'; // Default to 'en' if not set
+    languageCode = await CacheHelper.getData(key: 'languageCode') ?? 'en';
+    // ignore: use_build_context_synchronously
     context.read<LocalizationCubit>().loadLanguage(languageCode!);
   }
 
@@ -42,7 +42,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   Widget build(BuildContext context) {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {
         if (state is SuccessForgetPasswordState) {
           if (state.forgetPassword.status) {
@@ -140,7 +140,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                 email: emailController,
                                 title:
                                     isArabic ? 'البريد الالكتروني' : "Email"),
-
                             const SizedBox(
                               height: 192,
                             ),
@@ -150,14 +149,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                   title: isArabic ? 'ارسال الكود' : 'Send code',
                                   function: () {
                                     if (_formKey.currentState!.validate()) {
-                                      passengerCubit
-                                          .get(context)
+                                      PassengerCubit.get(context)
                                           .askForgetPassword(
                                               email: emailController.text);
                                     }
                                   }),
-                              fallback: (context) =>
-                                  const Center(child: CircularProgressIndicator()),
+                              fallback: (context) => const Center(
+                                  child: CircularProgressIndicator()),
                             ),
                             // TextFormField(
                             //   onSaved: (value) {

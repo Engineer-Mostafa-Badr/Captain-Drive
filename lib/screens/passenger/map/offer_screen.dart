@@ -5,13 +5,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:async';
-
 import '../../../localization/localization_cubit.dart';
 import '../../../network/end_points.dart';
 import '../../../shared/local/cach_helper.dart';
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
-import 'active_ride_screen.dart'; // تأكد من وجود الاستيراد الصحيح لـ cubit
+import 'active_ride_screen.dart';
 
 class OfferScreen extends StatefulWidget {
   const OfferScreen({super.key});
@@ -28,7 +27,7 @@ class _OfferScreenState extends State<OfferScreen> {
   void initState() {
     super.initState();
     _startOfferCheck();
-    passengerCubit.get(context).getRequest();
+    PassengerCubit.get(context).getRequest();
     loadLanguage();
   }
 
@@ -49,8 +48,8 @@ class _OfferScreenState extends State<OfferScreen> {
   void _startOfferCheck() {
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
       // Fetch latest offers and request model
-      passengerCubit.get(context).getRequest();
-      passengerCubit.get(context).getAllOffers();
+      PassengerCubit.get(context).getRequest();
+      PassengerCubit.get(context).getAllOffers();
 
       // Replace with actual logic to fetch and set offers data
       final offers = await _fetchOffers(); // Assume this method fetches offers
@@ -67,8 +66,7 @@ class _OfferScreenState extends State<OfferScreen> {
   Future<List<Offer>?> _fetchOffers() async {
     // Replace this with your actual method to fetch offers
     await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
-    return passengerCubit
-        .get(context)
+    return PassengerCubit.get(context)
         .getAllOffersModel
         ?.data
         ?.offers; // Replace with actual offer data
@@ -76,7 +74,7 @@ class _OfferScreenState extends State<OfferScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {
         if (state is PassengerRejectOfferSuccess) {
           showToast(message: 'تم الغاء هذا العرض', color: Colors.red);
@@ -171,8 +169,7 @@ class _OfferScreenState extends State<OfferScreen> {
                   height: 50,
                 ),
                 Text(
-                  passengerCubit
-                          .get(context)
+                  PassengerCubit.get(context)
                           .getRequestModel
                           ?.data
                           .requests[0]
@@ -192,8 +189,7 @@ class _OfferScreenState extends State<OfferScreen> {
                   height: 10,
                 ),
                 Text(
-                  passengerCubit
-                          .get(context)
+                  PassengerCubit.get(context)
                           .getRequestModel
                           ?.data
                           .requests[0]
@@ -211,8 +207,10 @@ class _OfferScreenState extends State<OfferScreen> {
                 Row(
                   children: [
                     Text(
-                      '${passengerCubit.get(context).getRequestModel?.data.requests[0].price}' ' LE',
-                      style: const TextStyle(fontSize: 14, color: Colors.black54),
+                      '${PassengerCubit.get(context).getRequestModel?.data.requests[0].price}'
+                      ' LE',
+                      style:
+                          const TextStyle(fontSize: 14, color: Colors.black54),
                     ),
                     const SizedBox(
                       width: 10,
@@ -229,9 +227,8 @@ class _OfferScreenState extends State<OfferScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        passengerCubit.get(context).cancelRequest(
-                            ride_request_id: passengerCubit
-                                .get(context)
+                        PassengerCubit.get(context).cancelRequest(
+                            ride_request_id: PassengerCubit.get(context)
                                 .getRequestModel
                                 ?.data
                                 .requests[0]
@@ -302,8 +299,8 @@ class _OfferScreenState extends State<OfferScreen> {
                       Row(
                         children: [
                           Text(driver.vehicle!.driverId.toString(),
-                              style:
-                                  const TextStyle(color: Colors.grey, fontSize: 12)),
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 12)),
                         ],
                       ),
                       const SizedBox(height: 4),
@@ -347,8 +344,7 @@ class _OfferScreenState extends State<OfferScreen> {
                             icon: const Icon(Icons.close, color: Colors.white),
                             onPressed: () {
                               // Reject the offer
-                              passengerCubit
-                                  .get(context)
+                              PassengerCubit.get(context)
                                   .rejectOffer(offer_id: offer.id);
 
                               // After rejecting the offer, check if the offers list is empty
@@ -364,7 +360,7 @@ class _OfferScreenState extends State<OfferScreen> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        BlocConsumer<passengerCubit, PassengerStates>(
+                        BlocConsumer<PassengerCubit, PassengerStates>(
                           listener: (context, state) {
                             if (state is PassengerAcceptOfferSuccess) {
                               showModalBottomSheet(
@@ -404,15 +400,14 @@ class _OfferScreenState extends State<OfferScreen> {
                                     color: Colors.white),
                                 onPressed: () {
                                   print(offer.id);
-                                  passengerCubit
-                                      .get(context)
+                                  PassengerCubit.get(context)
                                       .acceptOffer(offer_id: offer.id);
                                   // Handle accept action
                                 },
                               ),
                             ),
-                            fallback: (context) =>
-                                const Center(child: CircularProgressIndicator()),
+                            fallback: (context) => const Center(
+                                child: CircularProgressIndicator()),
                           ),
                         ),
                       ],

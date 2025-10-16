@@ -1,54 +1,49 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/data/models/get_numbers_admin_model.dart';
-import 'package:captain_drive/screens/passenger/cubit/states.dart';
 import 'package:captain_drive/screens/passenger/model/get_active_ride_model.dart';
 import 'package:captain_drive/screens/passenger/model/get_activites_model.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http_parser/http_parser.dart';
-
-import '../../../network/end_points.dart';
+import 'package:captain_drive/data/models/get_numbers_admin_model.dart';
+import 'package:captain_drive/screens/passenger/cubit/states.dart';
+import 'package:captain_drive/components/constant.dart';
+import '../model/reservation_request_model.dart';
 import '../../../network/remote/dio_helper.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../model/set_to_destination_model.dart';
+import 'package:http_parser/http_parser.dart';
 import '../model/cahange_password_model.dart';
 import '../model/get_all_offers_model.dart';
-import '../model/get_price_model.dart';
-import '../model/get_request_model.dart';
 import '../model/get_reservatin_model.dart';
-import '../model/get_user_model.dart';
-import '../model/reservation_request_model.dart';
+import '../../../network/end_points.dart';
 import '../model/ride_request_model.dart';
-import '../model/set_to_destination_model.dart';
+import '../model/get_request_model.dart';
+import '../model/get_price_model.dart';
+import '../model/get_user_model.dart';
 import '../model/update_model.dart';
+import 'package:dio/dio.dart';
 
-class passengerCubit extends Cubit<PassengerStates> {
-  passengerCubit() : super(PassengerInitialState());
+class PassengerCubit extends Cubit<PassengerStates> {
+  PassengerCubit() : super(PassengerInitialState());
 
-  static passengerCubit get(context) => BlocProvider.of(context);
+  static PassengerCubit get(context) => BlocProvider.of(context);
 
   ChangePasswordModel? forgetPassword;
-
   void askForgetPassword({
     required String email,
   }) {
+    print('🔄 Sending forget password request with email: $email');
     emit(LoadingForgetPasswordState());
+
     DioHelper.getData(
       url: FORGETPASSWORD,
-      data: {'email': email},
+      query: {'email': email},
     ).then((value) {
-      if (value != null) {
-        print('data Ask forget : ${jsonEncode(value.data)}');
-        forgetPassword = ChangePasswordModel.fromJson(value.data);
-        print('Parsed status: ${forgetPassword?.status}');
-        print('Parsed message: ${forgetPassword?.message}');
-        emit(SuccessForgetPasswordState(forgetPassword!));
-      } else {
-        emit(ErrorForgetPasswordState('Null response received'));
-      }
+      print('✅ Got response: ${value?.data}');
+      forgetPassword = ChangePasswordModel.fromJson(value?.data);
+      emit(SuccessForgetPasswordState(forgetPassword!));
     }).catchError((error) {
-      print(error.toString());
+      print('❌ Error in forget password: $error');
       emit(ErrorForgetPasswordState(error.toString()));
     });
   }

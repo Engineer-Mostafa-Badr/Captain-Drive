@@ -46,8 +46,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
     return BlocProvider(
-      create: (context) => passengerCubit()..getUserData(),
-      child: BlocConsumer<passengerCubit, PassengerStates>(
+      create: (context) => PassengerCubit()..getUserData(),
+      child: BlocConsumer<PassengerCubit, PassengerStates>(
         listener: (context, state) {
           if (state is SuccessChangePasswordState) {
             if (state.changePasswordModel.status) {
@@ -143,11 +143,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                         function: () {
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            passengerCubit
-                                                .get(context)
+                                            PassengerCubit.get(
+                                                    context)
                                                 .changePassword(
-                                                    old_password: passwordController
-                                                        .text,
+                                                    old_password:
+                                                        passwordController.text,
                                                     password:
                                                         newPasswordController
                                                             .text,
@@ -158,8 +158,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                         }),
                                   ],
                                 ),
-                                fallback: (context) =>
-                                    const Center(child: CircularProgressIndicator()),
+                                fallback: (context) => const Center(
+                                    child: CircularProgressIndicator()),
                               ),
                               const SizedBox(
                                 height: 50,

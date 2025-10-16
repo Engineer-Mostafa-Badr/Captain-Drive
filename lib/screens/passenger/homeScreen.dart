@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    passengerCubit.get(context).getActivities();
+    PassengerCubit.get(context).getActivities();
     // Load saved language code from SharedPreferences
     loadLanguage();
   }
@@ -107,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                               border: Border.all(
-                                  color: const Color.fromRGBO(189, 189, 189, 1))),
+                                  color:
+                                      const Color.fromRGBO(189, 189, 189, 1))),
                           child: const Center(
                               child: Icon(
                             Icons.location_on_outlined,
@@ -189,7 +190,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
                       border: Border.all(
-                        color: const Color.fromRGBO(67, 67, 67, 0.28), // Border color
+                        color: const Color.fromRGBO(
+                            67, 67, 67, 0.28), // Border color
                         width: 1.0, // Border width
                       ),
                     ),
@@ -221,8 +223,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 isArabic
                                     ? 'الي اين ؟ '
                                     : 'where are you going ?',
-                                style:
-                                    const TextStyle(color: Colors.grey, fontSize: 18),
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 18),
                               ),
                             ),
                           ),
@@ -314,8 +316,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 20),
                     Text(
                       isArabic ? 'اقتراحات' : 'Suggestions',
-                      style:
-                          const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20),
                     SingleChildScrollView(
@@ -417,8 +419,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 25),
                     Text(
                       isArabic ? 'خدمات اخري' : 'Other services',
-                      style:
-                          const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20),
                     GestureDetector(
@@ -426,7 +428,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ReservationStart()));
+                                builder: (context) =>
+                                    const ReservationStart()));
                       },
                       child: Container(
                         width: double.infinity,

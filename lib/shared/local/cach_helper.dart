@@ -3,24 +3,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CacheHelper {
   static late SharedPreferences sharedPreferences;
 
-  static init() async {
+  static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
+    print('✅ SharedPreferences initialized');
   }
 
   static dynamic getData({required String key}) {
-    return sharedPreferences.get(key);
+    final value = sharedPreferences.get(key);
+    print('📦 Get [$key] = $value');
+    return value;
   }
 
-  static Future<bool> saveData(
-      {required String key, required dynamic value}) async {
+  static Future<bool> saveData({
+    required String key,
+    required dynamic value,
+  }) async {
     if (value is String) return await sharedPreferences.setString(key, value);
     if (value is int) return await sharedPreferences.setInt(key, value);
     if (value is bool) return await sharedPreferences.setBool(key, value);
-    return await sharedPreferences.setDouble(key, value);
+    if (value is double) return await sharedPreferences.setDouble(key, value);
+    return false;
   }
 
-  static Future<bool> removeDate({required String key}) async {
-    //not clear because it delete all shared pref
+  static Future<bool> removeData({required String key}) async {
+    print('🗑️ Removing key: $key');
     return await sharedPreferences.remove(key);
   }
 }

@@ -43,7 +43,7 @@ class _CheckMailScreenState extends State<CheckMailScreen> {
   Widget build(BuildContext context) {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
-    return BlocConsumer<passengerCubit, PassengerStates>(
+    return BlocConsumer<PassengerCubit, PassengerStates>(
       listener: (context, state) {
         if (state is SuccessCheckCodeState) {
           if (state.forgetPassword.status) {
@@ -160,7 +160,7 @@ class _CheckMailScreenState extends State<CheckMailScreen> {
                                   title: isArabic ? 'تاكيد' : 'Confirm',
                                   function: () {
                                     print(otp);
-                                    passengerCubit.get(context).checkCode(
+                                    PassengerCubit.get(context).checkCode(
                                         email: widget.email, code: otp!);
                                     // Navigator.push(
                                     //     context,
@@ -168,8 +168,8 @@ class _CheckMailScreenState extends State<CheckMailScreen> {
                                     //         builder: (context) =>
                                     //             const CreateNewPasswordScreen()));
                                   }),
-                              fallback: (context) =>
-                                  const Center(child: CircularProgressIndicator()),
+                              fallback: (context) => const Center(
+                                  child: CircularProgressIndicator()),
                             ),
                           ],
                         ),

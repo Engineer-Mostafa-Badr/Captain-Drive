@@ -66,7 +66,6 @@ class PlacesWebservices {
           queryParameters: {
             'input': query,
             'types': type,
-            'components': 'country:eg',
             'key': googleApiKey,
             'sessiontoken': sessionToken,
           },

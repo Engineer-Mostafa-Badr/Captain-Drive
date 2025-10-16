@@ -79,7 +79,7 @@ class _MapScreenState extends State<MapScreen> {
   // these variables for getDirections
   PlaceDirections? placeDirections;
   var progressIndicator = false;
-  late List<LatLng> polylinePoints;
+  List<LatLng> polylinePoints = [];
   var isSearchedPlaceMarkerClicked = false;
   var isTimeAndDistanceVisible = false;
   late String time;
@@ -94,7 +94,7 @@ class _MapScreenState extends State<MapScreen> {
   initState() {
     super.initState();
     getMyCurrentLocation();
-    passengerCubit.get(context).getPriceData();
+    PassengerCubit.get(context).getPriceData();
     loadLanguage();
   }
 
@@ -812,7 +812,7 @@ class _MapScreenState extends State<MapScreen> {
   var priceVehicle = 5; //start by scooter
 
   Widget secondChoseTransportation() {
-    var cubit = passengerCubit.get(context).getPriceModel?.data;
+    var cubit = PassengerCubit.get(context).getPriceModel?.data;
     var profit = cubit?.profits;
 
     int? car = 6;
@@ -990,7 +990,7 @@ class _MapScreenState extends State<MapScreen> {
 
           // الزر في الأسفل
           widget.booking
-              ? BlocConsumer<passengerCubit, PassengerStates>(
+              ? BlocConsumer<PassengerCubit, PassengerStates>(
                   listener: (context, state) {
                     if (state is PassengerSendReservationRequestSuccess) {
                       Navigator.push(
@@ -1039,18 +1039,18 @@ class _MapScreenState extends State<MapScreen> {
                         print(widget.formattedDateTime);
 
                         // تنفيذ الطلب
-                        passengerCubit.get(context).reservationRequest(
-                              st_lat: '$currentLatitude',
-                              st_lng: '$currentLongitude',
-                              en_lat: '$destinationLatitude',
-                              en_lng: '$destinationLongitude',
-                              st_location: '$currentLocationName',
-                              en_location: '$destinationLocationName',
-                              vehicle: VehicleNumber,
-                              time: widget.formattedDateTime,
-                              price: double.parse(
-                                  formattedPrice), // تحويل السعر إلى نوع double
-                            );
+                        PassengerCubit.get(context).reservationRequest(
+                          st_lat: '$currentLatitude',
+                          st_lng: '$currentLongitude',
+                          en_lat: '$destinationLatitude',
+                          en_lng: '$destinationLongitude',
+                          st_location: '$currentLocationName',
+                          en_location: '$destinationLocationName',
+                          vehicle: VehicleNumber,
+                          time: widget.formattedDateTime,
+                          price: double.parse(
+                              formattedPrice), // تحويل السعر إلى نوع double
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.blue,
@@ -1065,7 +1065,7 @@ class _MapScreenState extends State<MapScreen> {
                         const Center(child: CircularProgressIndicator()),
                   ),
                 )
-              : BlocConsumer<passengerCubit, PassengerStates>(
+              : BlocConsumer<PassengerCubit, PassengerStates>(
                   listener: (context, state) {
                     if (state is PassengerSendRequestSuccess) {
                       showModalBottomSheet(
@@ -1087,7 +1087,8 @@ class _MapScreenState extends State<MapScreen> {
                                 topRight: Radius.circular(16),
                               ),
                             ),
-                            child: const OfferScreen(), // هنا تعرض محتوى OfferScreen
+                            child:
+                                const OfferScreen(), // هنا تعرض محتوى OfferScreen
                           );
                         },
                       );
@@ -1106,18 +1107,18 @@ class _MapScreenState extends State<MapScreen> {
                         print(destinationLocationName);
 
                         // تنفيذ الطلب
-                        passengerCubit.get(context).rideRequest(
-                              st_lat: '$currentLatitude',
-                              st_lng: '$currentLongitude',
-                              en_lat: '$destinationLatitude',
-                              en_lng: '$destinationLongitude',
-                              st_location: '$currentLocationName',
-                              en_location: '$destinationLocationName',
-                              vehicle: VehicleNumber,
+                        PassengerCubit.get(context).rideRequest(
+                          st_lat: '$currentLatitude',
+                          st_lng: '$currentLongitude',
+                          en_lat: '$destinationLatitude',
+                          en_lng: '$destinationLongitude',
+                          st_location: '$currentLocationName',
+                          en_location: '$destinationLocationName',
+                          vehicle: VehicleNumber,
 
-                              price: double.parse(
-                                  formattedPrice), // تحويل السعر إلى نوع double
-                            );
+                          price: double.parse(
+                              formattedPrice), // تحويل السعر إلى نوع double
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.blue,
@@ -1207,7 +1208,8 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       Text(
                         '${getTime()}',
-                        style: const TextStyle(fontSize: 12, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white),
                       ),
                       const Text(
                         ' المكان علي بعد',

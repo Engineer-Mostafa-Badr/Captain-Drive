@@ -459,7 +459,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                                                 fit: BoxFit.fill,
                                               )
                                             : Image.asset(
-                                                'assets/images/image.png'),
+                                                'assets/images/photo.png'),
                                       ),
                                     ),
                                     const SizedBox(width: 8),
@@ -773,13 +773,14 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginCaptainScreen(),
+                                  builder: (context) =>
+                                      const LoginCaptainScreen(),
                                 ),
                               );
-                              CacheHelper.removeDate(
+                              CacheHelper.removeData(
                                 key: 'Captientoken',
                               );
-                              CacheHelper.removeDate(key: 'email');
+                              CacheHelper.removeData(key: 'email');
                             } else {
                               print(state.captainLogOutModel.message);
                               showToast(
@@ -798,7 +799,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                         builder: (context, state) {
                           return GestureDetector(
                             onTap: () {
-                              CacheHelper.removeDate(key: 'Captientoken')
+                              CacheHelper.removeData(key: 'Captientoken')
                                   .then((value) {
                                 if (value) {
                                   print(userToken);
