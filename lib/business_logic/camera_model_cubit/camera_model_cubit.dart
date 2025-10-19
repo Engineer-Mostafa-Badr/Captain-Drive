@@ -2,13 +2,14 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:captain_drive/data/models/camera_model.dart';
-import 'package:captain_drive/network/remote/dio_helper.dart';
-import 'package:captain_drive/shared/local/cach_helper.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../network/end_points.dart';
+import '../../core/network/dio_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/network/end_points.dart';
 
 part 'camera_model_state.dart';
 

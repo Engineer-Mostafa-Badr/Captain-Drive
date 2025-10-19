@@ -1,4 +1,4 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:captain_drive/screens/passenger/change_password_screen.dart';
 import 'package:captain_drive/screens/passenger/cubit/cubit.dart';
 import 'package:captain_drive/screens/passenger/profile_information_screen.dart';
@@ -6,9 +6,10 @@ import 'package:captain_drive/screens/passenger/technecal_support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
-import 'authintaction/Login_passenger_screen.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+
+import '../../features/auth/passenger/presentation/views/Login_passenger_screen.dart';
 import 'information_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -21,7 +22,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // Load saved language code from SharedPreferences
     loadLanguage();
@@ -33,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> loadLanguage() async {
     languageCode = await CacheHelper.getData(key: 'languageCode') ??
         'en'; // Default to 'en' if not set
+    // ignore: use_build_context_synchronously
     context.read<LocalizationCubit>().loadLanguage(languageCode!);
   }
 
@@ -41,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: AppColor.backGroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -56,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
-                              color: backGroundColor,
+                              color: AppColor.backGroundColor,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
                                 BoxShadow(
@@ -73,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: const Center(
                               child: Icon(
                             Icons.location_on_outlined,
-                            color: primaryColor,
+                            color: AppColor.primaryColor,
                           ))),
                     ),
                     const SizedBox(width: 10),
@@ -86,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Text(
                           isArabic ? 'مصر' : 'Egypte',
-                          style: const TextStyle(color: primaryColor),
+                          style: const TextStyle(color: AppColor.primaryColor),
                         ),
                       ],
                     ),

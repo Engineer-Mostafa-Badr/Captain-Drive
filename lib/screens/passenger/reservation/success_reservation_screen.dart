@@ -1,10 +1,11 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../localization/localization_cubit.dart';
-import '../../../shared/local/cach_helper.dart';
-import '../layout_screen.dart';
+import '../../../core/storage/cache_helper.dart';
+import '../../../core/localization/localization_cubit.dart';
+
+import '../../../features/home/passenger/presentation/views/layout_screen.dart';
 
 class SuccessReservationScreen extends StatefulWidget {
   const SuccessReservationScreen({super.key});
@@ -89,7 +90,7 @@ class _SuccessReservationScreenState extends State<SuccessReservationScreen> {
                         height: 40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: primaryColor),
+                            color: AppColor.primaryColor),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -1,8 +1,8 @@
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:flutter/material.dart';
 import 'add_new_address_screen.dart';
-import 'layout_screen.dart';
+import '../../features/home/passenger/presentation/views/layout_screen.dart';
 
 class YourLocationScreen extends StatelessWidget {
   const YourLocationScreen({super.key});
@@ -10,7 +10,7 @@ class YourLocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: AppColor.backGroundColor,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -69,16 +69,17 @@ class YourLocationScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const AddNewAddressScreen()));
+                                builder: (context) =>
+                                    const AddNewAddressScreen()));
                       },
                       child: Container(
                         width: double.infinity,
                         height: 60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: backGroundColor,
+                          color: AppColor.backGroundColor,
                           border: Border.all(
-                            color: primaryColor,
+                            color: AppColor.primaryColor,
                             width: 1,
                           ),
                         ),
@@ -87,7 +88,7 @@ class YourLocationScreen extends StatelessWidget {
                             'Add new Address',
                             style: TextStyle(
                               fontSize: 20,
-                              color: primaryColor,
+                              color: AppColor.primaryColor,
                             ),
                           ),
                         ),

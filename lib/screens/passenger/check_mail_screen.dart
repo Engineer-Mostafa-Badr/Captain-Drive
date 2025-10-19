@@ -1,5 +1,5 @@
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/screens/passenger/create_new_password_screen.dart';
 import 'package:captain_drive/screens/passenger/cubit/cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+
 import 'cubit/states.dart';
 
 class CheckMailScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _CheckMailScreenState extends State<CheckMailScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: backGroundColor,
+          backgroundColor: AppColor.backGroundColor,
           body: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             child: SizedBox(
@@ -132,7 +133,7 @@ class _CheckMailScreenState extends State<CheckMailScreen> {
                             Text(
                               widget.email,
                               style: const TextStyle(
-                                color: primaryColor,
+                                color: AppColor.primaryColor,
                                 fontFamily: 'inter600',
                               ),
                             ),

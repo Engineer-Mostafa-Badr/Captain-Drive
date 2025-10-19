@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
-import 'package:captain_drive/network/end_points.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
+import 'package:captain_drive/core/network/end_points.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -170,7 +171,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           return Form(
             key: _formKey,
             child: Scaffold(
-              backgroundColor: backGroundColor,
+              backgroundColor: AppColor.backGroundColor,
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -518,7 +519,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         height: 30,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: ButtonfColor,
+                          color: AppColor.buttonColor,
                         ),
                         child: const Center(
                           child: Text(
@@ -614,7 +615,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             const SnackBar(content: Text('تم نسخ اللينك')),
                           );
                         },
-                        icon: const Icon(Icons.copy, color: primaryColor)),
+                        icon: const Icon(Icons.copy,
+                            color: AppColor.primaryColor)),
                     const SizedBox(
                       width: 10,
                     ),
@@ -709,7 +711,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: ButtonfColor,
+                        color: AppColor.buttonColor,
                       ),
                       child: const Center(
                         child: Text(

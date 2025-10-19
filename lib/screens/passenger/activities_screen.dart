@@ -1,11 +1,11 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:captain_drive/screens/passenger/cubit/cubit.dart';
 import 'package:captain_drive/screens/passenger/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
 
 class ActivitiesScreen extends StatefulWidget {
   const ActivitiesScreen({super.key});
@@ -35,7 +35,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: AppColor.backGroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -74,7 +74,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                     }
 
 // Proceed with the first element if the list is not empty
-                    var cubit = activitiesData.first.data ?? [];
+                    var cubit = activitiesData.first.data;
                     return cubit.isEmpty
                         ? Center(
                             child: Text(isArabic
@@ -117,8 +117,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        request.stLocation ??
-                                                            'Unknown',
+                                                        request.stLocation,
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: const TextStyle(
@@ -145,8 +144,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        request.stLocation ??
-                                                            'Unknown',
+                                                        request.stLocation,
                                                         textAlign:
                                                             TextAlign.end,
                                                         style: const TextStyle(
@@ -170,8 +168,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                               children: [
                                                 Expanded(
                                                   child: Text(
-                                                    request.enLocation ??
-                                                        'Unknown',
+                                                    request.enLocation,
                                                     textAlign: TextAlign.end,
                                                     style: const TextStyle(
                                                       color: Color(0XFF919191),
@@ -187,8 +184,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                 const Text("To :       "),
                                                 Expanded(
                                                   child: Text(
-                                                    request.enLocation ??
-                                                        'Unknown',
+                                                    request.enLocation,
                                                     textAlign: TextAlign.end,
                                                     style: const TextStyle(
                                                       color: Color(0XFF919191),
@@ -215,9 +211,8 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                     ),
                                                     Text(
                                                       request.createdAt
-                                                              .split('T')
-                                                              .first ??
-                                                          '',
+                                                          .split('T')
+                                                          .first,
                                                       style: const TextStyle(
                                                         color:
                                                             Color(0XFF919191),
@@ -234,7 +229,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${request.price ?? 0.0}',
+                                                  '${request.price}',
                                                   style: const TextStyle(
                                                     fontSize: 20,
                                                     color: Color(0xFF0A8800),
@@ -258,7 +253,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${request.price ?? 0.0}',
+                                                  '${request.price}',
                                                   style: const TextStyle(
                                                     fontSize: 20,
                                                     color: Color(0xFF0A8800),
@@ -282,9 +277,8 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                                                     ),
                                                     Text(
                                                       request.createdAt
-                                                              .split('T')
-                                                              .first ??
-                                                          '',
+                                                          .split('T')
+                                                          .first,
                                                       style: const TextStyle(
                                                         color:
                                                             Color(0XFF919191),

@@ -1,4 +1,4 @@
-import 'package:captain_drive/screens/captain/chat/chat_view.dart';
+import 'package:captain_drive/features/chat/driver/presentation/views/chat_view.dart';
 import 'package:captain_drive/screens/captain/chat/models/message_model.dart';
 import 'package:flutter/material.dart';
 

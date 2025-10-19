@@ -11,8 +11,8 @@ import '../../../business_logic/maps/maps_cubit.dart';
 import '../../../data/models/Place_suggestion.dart';
 import '../../../data/models/place.dart';
 import '../../../data/models/place_directions.dart';
-import '../../../helpers/location_helper.dart';
-import '../../../presentation/widgets/place_item.dart';
+import '../../../core/helpers/location_helper.dart';
+import '../../../core/widgets/place_item.dart';
 import '../../captain/captain_map/utils/map_services.dart';
 
 class MapReservationScreen extends StatefulWidget {
@@ -602,43 +602,6 @@ class _MapReservationScreenState extends State<MapReservationScreen> {
   }
 
   // Set the markers and draw the route between Address (origin) and Branch (destination)
-  void _setMapMarkersAndRoute(LatLng origin, LatLng destination) async {
-    setState(() {
-      markers.clear();
-      // Marker for Address
-      markers.add(Marker(
-        markerId: const MarkerId('origin'),
-        position: origin,
-        infoWindow: const InfoWindow(title: 'Address'),
-      ));
-
-      // Marker for Branch
-      markers.add(Marker(
-        markerId: const MarkerId('destination'),
-        position: destination,
-        infoWindow: const InfoWindow(title: 'Branch'),
-      ));
-    });
-
-    // Set the address and branch in map services using the correct Address type
-    var points = await mapServices.getRouteData(desintation: destination);
-    _setPolylines(points);
-
-    // Move the camera to show the full route
-    LatLngBounds bounds = mapServices.getLatLngBounds(points);
-    googleMapController.animateCamera(CameraUpdate.newLatLngBounds(bounds, 32));
-  }
 
   // Set the polyline for the route
-  void _setPolylines(List<LatLng> points) {
-    setState(() {
-      polylines.clear();
-      polylines.add(Polyline(
-        polylineId: const PolylineId('route'),
-        color: Colors.blue,
-        width: 5,
-        points: points,
-      ));
-    });
-  }
 }

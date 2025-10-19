@@ -6,16 +6,16 @@ import 'package:captain_drive/screens/passenger/model/get_active_ride_model.dart
 import 'package:captain_drive/screens/passenger/model/get_activites_model.dart';
 import 'package:captain_drive/data/models/get_numbers_admin_model.dart';
 import 'package:captain_drive/screens/passenger/cubit/states.dart';
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import '../../../core/network/dio_helper.dart';
 import '../model/reservation_request_model.dart';
-import '../../../network/remote/dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../model/set_to_destination_model.dart';
 import 'package:http_parser/http_parser.dart';
 import '../model/cahange_password_model.dart';
 import '../model/get_all_offers_model.dart';
 import '../model/get_reservatin_model.dart';
-import '../../../network/end_points.dart';
+import '../../../core/network/end_points.dart';
 import '../model/ride_request_model.dart';
 import '../model/get_request_model.dart';
 import '../model/get_price_model.dart';
@@ -512,7 +512,8 @@ class PassengerCubit extends Cubit<PassengerStates> {
 
   void setToDestination() {
     emit(PassengerSetToDestinationLoading());
-    DioHelper.postData(url: SETTODESTINITION, token: userToken).then((value) {
+    DioHelper.postData(url: SETTODESTINITION, token: userToken, data: {})
+        .then((value) {
       if (value != null) {
         print('data setToDestination : ${jsonEncode(value.data)}');
         setToDestinationModel = SetToDestinationModel.fromJson(value.data);

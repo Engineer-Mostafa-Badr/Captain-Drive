@@ -1,4 +1,4 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckBox extends StatelessWidget {
@@ -19,7 +19,7 @@ class CustomCheckBox extends StatelessWidget {
             milliseconds: 100,
           ),
           decoration: ShapeDecoration(
-            color: isChecked ? primaryColor : const Color(0xFF48444E),
+            color: isChecked ? AppColor.primaryColor : const Color(0xFF48444E),
             shape: RoundedRectangleBorder(
               side: BorderSide(
                 width: 1.5,

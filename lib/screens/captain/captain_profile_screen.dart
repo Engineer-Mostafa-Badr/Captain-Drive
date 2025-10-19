@@ -1,20 +1,27 @@
 import 'package:captain_drive/business_logic/captain_auth/captain_get_profile_data_cubit/captain_get_profile_data_cubit.dart';
-import 'package:captain_drive/business_logic/captain_auth/captain_log_out_cubit/captain_log_out_cubit.dart';
 import 'package:captain_drive/business_logic/driver_status_cubit/driver_status_cubit.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/data/models/captain_get_data_model/captain_get_data_model.dart';
-import 'package:captain_drive/screens/captain/Login_captain_screen.dart';
+
 import 'package:captain_drive/screens/captain/captain_change_password.dart';
 import 'package:captain_drive/screens/captain/captain_notification_screen.dart';
-import 'package:captain_drive/shared/local/cach_helper.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 
-import '../../localization/localization_cubit.dart';
-import 'captain_map/views/google_map_view.dart';
+import '../../core/di/get_it.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../features/auth/driver/domain/use_cases/driver_delete_account_usecase.dart';
+import '../../features/auth/driver/domain/use_cases/driver_login_usecase.dart';
+import '../../features/auth/driver/domain/use_cases/driver_logout_usecase.dart';
+import '../../features/auth/driver/domain/use_cases/driver_sign_up_usecase.dart';
+import '../../features/auth/driver/presentation/cubit/driver_auth_cubit.dart';
+import '../../features/auth/driver/presentation/views/driver_login_view.dart';
+import '../../core/localization/localization_cubit.dart';
+import '../../features/map/driver/presentation/views/google_map_view.dart';
 
 class CaptainProfileScreen extends StatefulWidget {
   const CaptainProfileScreen({super.key});
@@ -30,7 +37,6 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadLanguage();
   }
@@ -40,6 +46,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
   Future<void> loadLanguage() async {
     languageCode = await CacheHelper.getData(key: 'languageCode') ??
         'en'; // Default to 'en' if not set
+    // ignore: use_build_context_synchronously
     context.read<LocalizationCubit>().loadLanguage(languageCode!);
   }
 
@@ -50,7 +57,12 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CaptainLogOutCubit(),
+          create: (context) => DriverAuthCubit(
+            loginUseCase: DriverLoginUseCase(sl()),
+            signUpUseCase: DriverSignUpUseCase(sl()),
+            logoutUseCase: DriverLogoutUseCase(sl()),
+            deleteAccountUseCase: DriverDeleteAccountUseCase(sl()),
+          ),
         ),
         BlocProvider(
           create: (context) => DriverStatusCubit(),
@@ -60,7 +72,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
         ),
       ],
       child: Scaffold(
-        backgroundColor: backGroundColor,
+        backgroundColor: AppColor.backGroundColor,
         body: SafeArea(
           child: BlocConsumer<CaptainGetProfileDataCubit,
               CaptainGetProfileDataState>(
@@ -108,7 +120,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: backGroundColor,
+                                  color: AppColor.backGroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: const [
                                     BoxShadow(
@@ -127,7 +139,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                                 child: const Center(
                                   child: Icon(
                                     Icons.location_on_outlined,
-                                    color: primaryColor,
+                                    color: AppColor.primaryColor,
                                   ),
                                 ),
                               ),
@@ -143,7 +155,8 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                                 ),
                                 Text(
                                   isArabic ? 'مصر' : 'Egypt',
-                                  style: const TextStyle(color: primaryColor),
+                                  style: const TextStyle(
+                                      color: AppColor.primaryColor),
                                 ),
                               ],
                             ),
@@ -160,7 +173,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: backGroundColor,
+                                  color: AppColor.backGroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: const [
                                     BoxShadow(
@@ -179,7 +192,7 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                                 child: const Center(
                                   child: Icon(
                                     Icons.notifications_none_outlined,
-                                    color: primaryColor,
+                                    color: AppColor.primaryColor,
                                   ),
                                 ),
                               ),
@@ -766,34 +779,33 @@ class _CaptainProfileScreenState extends State<CaptainProfileScreen> {
                       const SizedBox(
                         height: 149,
                       ),
-                      BlocConsumer<CaptainLogOutCubit, CaptainLogOutState>(
+                      BlocConsumer<DriverAuthCubit, DriverAuthState>(
                         listener: (context, state) {
-                          if (state is CaptainLogOutSuccess) {
-                            if (state.captainLogOutModel.status) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const LoginCaptainScreen(),
-                                ),
-                              );
-                              CacheHelper.removeData(
-                                key: 'Captientoken',
-                              );
-                              CacheHelper.removeData(key: 'email');
-                            } else {
-                              print(state.captainLogOutModel.message);
-                              showToast(
-                                message: state.captainLogOutModel.message,
-                                color: Colors.red,
-                              );
-                            }
-                            if (state is CaptainLogOutFailure) {
-                              showToast(
-                                message: state.captainLogOutModel.message,
-                                color: Colors.red,
-                              );
-                            }
+                          if (state is DriverLogoutSuccess) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const LoginCaptainScreen(),
+                              ),
+                            );
+                            CacheHelper.removeData(
+                              key: 'Captientoken',
+                            );
+                            CacheHelper.removeData(key: 'email');
+                            //  else {
+                            //   print(state.captainLogOutModel.message);
+                            //   showToast(
+                            //     message: state.captainLogOutModel.message,
+                            //     color: Colors.red,
+                            //   );
+                            // }
+                            // if (state is DriverLogOutFailure) {
+                            //   showToast(
+                            //     message: state.captainLogOutModel.message,
+                            //     color: Colors.red,
+                            //   );
+                            // }
                           }
                         },
                         builder: (context, state) {

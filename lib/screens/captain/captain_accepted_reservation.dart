@@ -2,9 +2,9 @@ import 'package:captain_drive/business_logic/arrive_reservation_cubit/arrive_res
 import 'package:captain_drive/business_logic/captain_auth/cancel_reservation_cubit/cancel_reservation_cubit.dart';
 import 'package:captain_drive/business_logic/driver_get_reservation_offer_cubit/driver_get_reservation_offer_cubit.dart';
 import 'package:captain_drive/business_logic/set_ride_arrive_cubit/set_ride_complete_cubit.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/data/models/driver_get_offer_model.dart';
-import 'package:captain_drive/screens/captain/captain_map/views/google_map_view.dart';
+import 'package:captain_drive/features/map/driver/presentation/views/google_map_view.dart';
 import 'package:captain_drive/screens/captain/captain_reservation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +12,11 @@ import 'package:captain_drive/business_logic/captain_cancel_reservation_offer_cu
 import 'package:captain_drive/business_logic/captain_get_driver_reservation_cubit/captain_get_driver_reservation_cubit.dart';
 import 'package:captain_drive/data/models/captain_get_driver_reservation_model.dart';
 import 'package:captain_drive/screens/captain/captain_notification_screen.dart';
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:intl/intl.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
 
 class CaptainAcceptedReservation extends StatefulWidget {
   const CaptainAcceptedReservation({super.key});
@@ -92,7 +92,7 @@ class _CaptainAcceptedReservationState
           Center(
             child: Text(
               isArabic ? 'لا يوجد حجوزات متاحة.' : 'No reservations available.',
-              style: const TextStyle(color: primaryColor),
+              style: const TextStyle(color: AppColor.primaryColor),
             ),
           ),
           const SizedBox(
@@ -112,7 +112,7 @@ class _CaptainAcceptedReservationState
                 ),
               );
             },
-            color: primaryColor,
+            color: AppColor.primaryColor,
           ),
         ],
       );
@@ -125,11 +125,11 @@ class _CaptainAcceptedReservationState
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: AppColor.backGroundColor,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: _refresh,
-          color: primaryColor,
+          color: AppColor.primaryColor,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
@@ -154,7 +154,7 @@ class _CaptainAcceptedReservationState
                             width: 40,
                             height: 40,
                             decoration: BoxDecoration(
-                                color: backGroundColor,
+                                color: AppColor.backGroundColor,
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: const [
                                   BoxShadow(
@@ -170,7 +170,7 @@ class _CaptainAcceptedReservationState
                             child: const Center(
                               child: Icon(
                                 Icons.location_on_outlined,
-                                color: primaryColor,
+                                color: AppColor.primaryColor,
                               ),
                             ),
                           ),
@@ -185,7 +185,8 @@ class _CaptainAcceptedReservationState
                             ),
                             Text(
                               isArabic ? 'مصر' : 'Egypt',
-                              style: const TextStyle(color: primaryColor),
+                              style:
+                                  const TextStyle(color: AppColor.primaryColor),
                             ),
                           ],
                         ),
@@ -194,7 +195,7 @@ class _CaptainAcceptedReservationState
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(
-                              color: backGroundColor,
+                              color: AppColor.backGroundColor,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
                                 BoxShadow(
@@ -217,7 +218,7 @@ class _CaptainAcceptedReservationState
                             },
                             child: const Icon(
                               Icons.notifications_outlined,
-                              color: primaryColor,
+                              color: AppColor.primaryColor,
                             ),
                           ),
                         ),
@@ -243,7 +244,8 @@ class _CaptainAcceptedReservationState
                     builder: (context, state) {
                       if (state is DriverGetReservationOfferLoading) {
                         return const Center(
-                          child: CircularProgressIndicator(color: primaryColor),
+                          child: CircularProgressIndicator(
+                              color: AppColor.primaryColor),
                         );
                       } else if (state is DriverGetReservationOfferSuccess &&
                           hasDriverReservationData) {

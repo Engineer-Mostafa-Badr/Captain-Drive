@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/constant.dart';
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
-import 'layout_screen.dart';
+import '../../core/components/constant.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+
+import '../../features/home/passenger/presentation/views/layout_screen.dart';
 
 class InformationScreen extends StatefulWidget {
   const InformationScreen({super.key});
@@ -105,9 +106,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                 builder: (context) => const LayoutScreen()));
                       },
                       style: ElevatedButton.styleFrom(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                        backgroundColor: primaryColor,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 20),
+                        backgroundColor: AppColor.primaryColor,
                       ),
                       child: Text(
                         isArabic ? 'أفهم ذلك' : 'I Understand',
@@ -141,7 +142,7 @@ class _InformationScreenState extends State<InformationScreen> {
             ),
           ),
           const SizedBox(width: 10),
-          Icon(icon, color: primaryColor),
+          Icon(icon, color: AppColor.primaryColor),
         ],
       ),
     );

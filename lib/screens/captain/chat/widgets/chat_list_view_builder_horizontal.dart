@@ -1,8 +1,8 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:captain_drive/screens/captain/chat/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 
-import '../chat_view.dart';
+import '../../../../features/chat/driver/presentation/views/chat_view.dart';
 
 class ChatListViewBuilderHorizontal extends StatefulWidget {
   const ChatListViewBuilderHorizontal(
@@ -62,7 +62,9 @@ class _ChatListViewBuilderHorizontalState
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: isSelected ? primaryColor : Colors.transparent,
+                      color: isSelected
+                          ? AppColor.primaryColor
+                          : Colors.transparent,
                       width: isSelected ? 4.0 : 0.0,
                     ),
                   ),

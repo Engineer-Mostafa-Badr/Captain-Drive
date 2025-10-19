@@ -1,16 +1,16 @@
 import 'package:captain_drive/business_logic/captain_activities_cubit/captain_activities_cubit.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/data/models/get_captain_activities/get_captain_activities.dart';
 import 'package:captain_drive/screens/captain/captain_activities_list_view.dart';
-import 'package:captain_drive/screens/captain/captain_map/views/google_map_view.dart';
+import 'package:captain_drive/features/map/driver/presentation/views/google_map_view.dart';
 import 'package:captain_drive/screens/captain/captain_notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:number_paginator/number_paginator.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+import '../../core/storage/cache_helper.dart';
 
 class CaptainActivitiesScreen extends StatefulWidget {
   const CaptainActivitiesScreen({super.key});
@@ -70,7 +70,7 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
         builder: (context, state) {
           if (getCaptainActivitiesModel == null) {
             return const Scaffold(
-              backgroundColor: backGroundColor,
+              backgroundColor: AppColor.backGroundColor,
               body: Center(child: CircularProgressIndicator()),
             );
           }
@@ -96,7 +96,7 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
               .toList();
 
           return Scaffold(
-            backgroundColor: backGroundColor,
+            backgroundColor: AppColor.backGroundColor,
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
@@ -121,7 +121,7 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: backGroundColor,
+                                  color: AppColor.backGroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: const [
                                     BoxShadow(
@@ -140,7 +140,7 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
                                 child: const Center(
                                   child: Icon(
                                     Icons.location_on_outlined,
-                                    color: primaryColor,
+                                    color: AppColor.primaryColor,
                                   ),
                                 ),
                               ),
@@ -156,7 +156,8 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
                                 ),
                                 Text(
                                   isArabic ? 'مصر' : 'Egypt',
-                                  style: const TextStyle(color: primaryColor),
+                                  style: const TextStyle(
+                                      color: AppColor.primaryColor),
                                 ),
                               ],
                             ),
@@ -173,7 +174,7 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: backGroundColor,
+                                  color: AppColor.backGroundColor,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: const [
                                     BoxShadow(
@@ -192,7 +193,7 @@ class _CaptainActivitiesScreenState extends State<CaptainActivitiesScreen> {
                                 child: const Center(
                                   child: Icon(
                                     Icons.notifications_none_outlined,
-                                    color: primaryColor,
+                                    color: AppColor.primaryColor,
                                   ),
                                 ),
                               ),

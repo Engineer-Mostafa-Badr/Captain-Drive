@@ -49,11 +49,4 @@ class PassengerSignUpService {
       throw Exception('oops there was an error, please try again');
     }
   }
-
-  // _saveToken(String token) async {
-  //   final pref = await SharedPreferences.getInstance();
-  //   const key = "data";
-  //   final value = token;
-  //   pref.setString(key, value);
-  // }
 }

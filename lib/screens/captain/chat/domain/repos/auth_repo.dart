@@ -1,5 +1,5 @@
 import 'package:captain_drive/screens/captain/chat/domain/entities/user_entity.dart';
-import 'package:captain_drive/screens/captain/chat/errors/failures.dart';
+import 'package:captain_drive/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 
 /// Abstract repository interface for authentication operations.

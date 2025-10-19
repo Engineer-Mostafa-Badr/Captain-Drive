@@ -2,11 +2,11 @@
 
 import '../../business_logic/captain_auth/captain_forget_password_cubit/captain_forget_password_cubit.dart';
 import 'package:captain_drive/screens/captain/captain_check_mail.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
-import '../../localization/localization_cubit.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
+import '../../core/localization/localization_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
 import 'package:flutter/material.dart';
 
 class CaptainForgetPasswordScreen extends StatefulWidget {
@@ -44,7 +44,7 @@ class _CaptainForgetPasswordScreenState
     return BlocProvider(
       create: (context) => CaptainForgetPasswordCubit(),
       child: Scaffold(
-        backgroundColor: backGroundColor,
+        backgroundColor: AppColor.backGroundColor,
         body: BlocConsumer<CaptainForgetPasswordCubit,
             CaptainForgetPasswordState>(
           listener: (context, state) {

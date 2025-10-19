@@ -1,11 +1,12 @@
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
@@ -28,7 +29,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadLanguage();
   }
@@ -66,7 +66,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           return Form(
             key: _formKey,
             child: Scaffold(
-              backgroundColor: backGroundColor,
+              backgroundColor: AppColor.backGroundColor,
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(

@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../components/constant.dart';
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/components/constant.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+
 import 'cubit/cubit.dart';
 
 class TechenecalSupportScreen extends StatefulWidget {
@@ -44,7 +45,7 @@ class _TechenecalSupportScreenState extends State<TechenecalSupportScreen> {
         bool isArabic = LocalizationCubit.get(context).isArabic();
 
         return Scaffold(
-          backgroundColor: backGroundColor,
+          backgroundColor: AppColor.backGroundColor,
           body: ConditionalBuilder(
             condition: state is! PassengerGetNumbersAdminLoading,
             builder: (context) => SingleChildScrollView(

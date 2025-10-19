@@ -1,4 +1,4 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:captain_drive/main.dart';
 import 'package:captain_drive/screens/passenger/notification_screen.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class SnackBarManager {
             topRight: Radius.circular(16.0),
           ),
           child: Container(
-            color: primaryColor,
+            color: AppColor.primaryColor,
             padding: const EdgeInsets.all(16.0),
             child: Text(
               "$message",

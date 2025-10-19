@@ -1,13 +1,13 @@
 import 'package:captain_drive/business_logic/captain_auth/captain_check_mail_cubit/captain_check_mail_cubit.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/screens/captain/captain_create_new_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+import '../../core/storage/cache_helper.dart';
 
 class CaptainCheckMail extends StatefulWidget {
   final String email;
@@ -45,7 +45,7 @@ class _CaptainCheckMailState extends State<CaptainCheckMail> {
     return BlocProvider(
       create: (context) => CaptainCheckMailCubit(),
       child: Scaffold(
-        backgroundColor: backGroundColor,
+        backgroundColor: AppColor.backGroundColor,
         body: BlocConsumer<CaptainCheckMailCubit, CaptainCheckMailState>(
           listener: (context, state) {
             if (state is CaptainCheckMailSuccess) {
@@ -143,7 +143,7 @@ class _CaptainCheckMailState extends State<CaptainCheckMail> {
                               Text(
                                 widget.email,
                                 style: const TextStyle(
-                                  color: primaryColor,
+                                  color: AppColor.primaryColor,
                                   fontFamily: 'inter600',
                                 ),
                               ),
@@ -154,8 +154,8 @@ class _CaptainCheckMailState extends State<CaptainCheckMail> {
                                 numberOfFields: 4,
                                 fieldWidth: 75,
                                 enabledBorderColor: const Color(0xFF919191),
-                                focusedBorderColor: primaryColor,
-                                cursorColor: primaryColor,
+                                focusedBorderColor: AppColor.primaryColor,
+                                cursorColor: AppColor.primaryColor,
                                 showFieldAsBox: false,
                                 onSubmit: (String code) {
                                   setState(() {

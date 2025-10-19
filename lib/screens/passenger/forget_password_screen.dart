@@ -1,14 +1,14 @@
 // ignore_for_file: avoid_print
-
-import 'package:captain_drive/screens/passenger/authintaction/Login_passenger_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:captain_drive/screens/passenger/check_mail_screen.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
-import '../../localization/localization_cubit.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../shared/local/cach_helper.dart';
+
 import 'package:flutter/material.dart';
+import '../../features/auth/passenger/presentation/views/Login_passenger_screen.dart';
 import 'cubit/states.dart';
 import 'cubit/cubit.dart';
 
@@ -62,7 +62,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: backGroundColor,
+          backgroundColor: AppColor.backGroundColor,
           body: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             child: SizedBox(

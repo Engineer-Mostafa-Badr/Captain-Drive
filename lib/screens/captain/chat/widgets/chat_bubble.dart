@@ -1,4 +1,4 @@
-import 'package:captain_drive/components/constant.dart';
+import 'package:captain_drive/core/components/constant.dart';
 import 'package:captain_drive/screens/captain/chat/models/message_model.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +63,7 @@ class ChatBubbleForFriend extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               decoration: BoxDecoration(
-                color: primaryColor,
+                color: AppColor.primaryColor,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: ClipRRect(
@@ -80,7 +80,7 @@ class ChatBubbleForFriend extends StatelessWidget {
               padding: const EdgeInsets.all(18),
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
               decoration: const BoxDecoration(
-                color: primaryColor,
+                color: AppColor.primaryColor,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),

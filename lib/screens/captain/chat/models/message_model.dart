@@ -1,4 +1,4 @@
-import 'package:captain_drive/screens/captain/chat/const.dart';
+import 'package:captain_drive/features/chat/driver/presentation/views/const.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageModel {

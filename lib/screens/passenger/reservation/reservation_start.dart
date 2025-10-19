@@ -1,14 +1,15 @@
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/screens/passenger/cubit/cubit.dart';
-import 'package:captain_drive/screens/passenger/layout_screen.dart';
+import 'package:captain_drive/features/home/passenger/presentation/views/layout_screen.dart';
 import 'package:captain_drive/screens/passenger/reservation/reservation_time_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../localization/localization_cubit.dart';
-import '../../../shared/local/cach_helper.dart';
+import '../../../core/storage/cache_helper.dart';
+import '../../../core/localization/localization_cubit.dart';
+
 import '../cubit/states.dart';
 
 class ReservationStart extends StatefulWidget {
@@ -143,7 +144,8 @@ class _ReservationStartState extends State<ReservationStart> {
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 50, vertical: 20),
-                          backgroundColor: primaryColor, // Button color
+                          backgroundColor:
+                              AppColor.primaryColor, // Button color
                         ),
                         child: Text(
                           isArabic ? 'احجز مشواراً' : 'Book a ride',
@@ -224,7 +226,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              request.stLocation ?? 'Unknown',
+                                              request.stLocation,
                                               textAlign: TextAlign.end,
                                               style: const TextStyle(
                                                 color: Color(0XFF919191),
@@ -248,7 +250,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              request.stLocation ?? 'Unknown',
+                                              request.stLocation,
                                               textAlign: TextAlign.end,
                                               style: const TextStyle(
                                                 color: Color(0XFF919191),
@@ -270,7 +272,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          request.enLocation ?? 'Unknown',
+                                          request.enLocation,
                                           textAlign: TextAlign.end,
                                           style: const TextStyle(
                                             color: Color(0XFF919191),
@@ -286,7 +288,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                       const Text("To :       "),
                                       Expanded(
                                         child: Text(
-                                          request.enLocation ?? 'Unknown',
+                                          request.enLocation,
                                           textAlign: TextAlign.end,
                                           style: const TextStyle(
                                             color: Color(0XFF919191),
@@ -304,8 +306,8 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          request.time.split(' ')[0] ??
-                                              'Unknown', // Extract only the date
+                                          request.time.split(
+                                              ' ')[0], // Extract only the date
                                           textAlign: TextAlign.end,
                                           style: const TextStyle(
                                             color: Color(0XFF919191),
@@ -320,7 +322,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       const Text("date :       "),
                                       Text(
-                                        request.time.split(' ')[0] ?? 'Unknown',
+                                        request.time.split(' ')[0],
                                         textAlign: TextAlign.end,
                                         style: const TextStyle(
                                           color: Color(0XFF919191),
@@ -337,8 +339,8 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          request.time.split(' ')[1] ??
-                                              'Unknown', // Extract only the date
+                                          request.time.split(
+                                              ' ')[1], // Extract only the date
                                           textAlign: TextAlign.end,
                                           style: const TextStyle(
                                             color: Color(0XFF919191),
@@ -353,7 +355,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                     children: [
                                       const Text("time :       "),
                                       Text(
-                                        request.time.split(' ')[1] ?? 'Unknown',
+                                        request.time.split(' ')[1],
                                         textAlign: TextAlign.end,
                                         style: const TextStyle(
                                           color: Color(0XFF919191),
@@ -371,9 +373,8 @@ class _ReservationStartState extends State<ReservationStart> {
                                       Expanded(
                                         child: Text(
                                           nameVehicle(
-                                                  number: request.vehicle
-                                                      .toString()) ??
-                                              'Unknown', // Extract only the date
+                                              number: request.vehicle
+                                                  .toString()), // Extract only the date
                                           textAlign: TextAlign.end,
                                           style: const TextStyle(
                                             color: Color(0XFF919191),
@@ -389,9 +390,8 @@ class _ReservationStartState extends State<ReservationStart> {
                                       const Text("vehicle type :  "),
                                       Text(
                                         nameVehicle(
-                                                number: request.vehicle
-                                                    .toString()) ??
-                                            'Unknown', // Extract only the date
+                                            number: request.vehicle
+                                                .toString()), // Extract only the date
                                         textAlign: TextAlign.end,
 
                                         style: const TextStyle(
@@ -417,10 +417,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                             width: 5,
                                           ),
                                           Text(
-                                            request.createdAt
-                                                    .split('T')
-                                                    .first ??
-                                                '',
+                                            request.createdAt.split('T').first,
                                             style: const TextStyle(
                                               color: Color(0XFF919191),
                                               fontSize: 12,
@@ -436,7 +433,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                         ),
                                       ),
                                       Text(
-                                        '${request.price ?? 0.0}',
+                                        '${request.price}',
                                         style: const TextStyle(
                                           fontSize: 20,
                                           color: Color(0xFF0A8800),
@@ -460,7 +457,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                         ),
                                       ),
                                       Text(
-                                        '${request.price ?? 0.0}',
+                                        '${request.price}',
                                         style: const TextStyle(
                                           fontSize: 20,
                                           color: Color(0xFF0A8800),
@@ -483,10 +480,7 @@ class _ReservationStartState extends State<ReservationStart> {
                                             width: 5,
                                           ),
                                           Text(
-                                            request.createdAt
-                                                    .split('T')
-                                                    .first ??
-                                                '',
+                                            request.createdAt.split('T').first,
                                             style: const TextStyle(
                                               color: Color(0XFF919191),
                                               fontSize: 12,
@@ -539,7 +533,7 @@ class _ReservationStartState extends State<ReservationStart> {
             ),
           ),
           const SizedBox(width: 10),
-          Icon(icon, color: primaryColor),
+          Icon(icon, color: AppColor.primaryColor),
         ],
       ),
     );

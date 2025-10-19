@@ -1,16 +1,11 @@
 // ignore_for_file: avoid_print
 import 'dart:async';
-import 'package:captain_drive/firebase_options.dart';
-import 'package:captain_drive/screens/captain/captain_layout_screen.dart';
-import 'package:captain_drive/screens/captain/chat/services/firebase_notifications.dart';
-import 'package:captain_drive/screens/captain/chat/services/get_it_service.dart';
-import 'package:captain_drive/screens/onboarding/onboarding_screen.dart';
+
+import 'package:captain_drive/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:captain_drive/screens/passenger/cubit/cubit.dart';
-import 'package:captain_drive/screens/passenger/layout_screen.dart';
-import 'package:captain_drive/screens/selected/selected_screen.dart';
-import 'package:captain_drive/screens/splash/splash_screen.dart';
-import 'package:captain_drive/shared/local/cach_helper.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:captain_drive/features/home/passenger/presentation/views/layout_screen.dart';
+
+import 'package:captain_drive/features/splash/presentation/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'business_logic/camera_model_cubit/camera_model_cubit.dart';
@@ -30,36 +25,33 @@ import 'business_logic/driver_set_current_location_cubit/driver_set_current_loca
 import 'business_logic/maps/maps_cubit.dart';
 import 'business_logic/set_arrive_ride_cubit/set_arrive_ride_cubit.dart';
 import 'business_logic/set_ride_arrive_cubit/set_ride_complete_cubit.dart';
-import 'components/constant.dart';
+import 'core/components/constant.dart';
+import 'core/di/get_it.dart' as di;
+import 'core/network/dio_helper.dart';
+import 'core/storage/cache_helper.dart';
 import 'data/repository/maps_repo.dart';
 import 'data/webservices/places_webservices.dart';
-import 'localization/localization_cubit.dart';
-import 'network/remote/dio_helper.dart';
-import 'network/share/bloc_observer.dart';
+import 'features/auth/auth_selector/presentation/views/select_auth_type_view.dart';
+import 'core/localization/localization_cubit.dart';
+
+import 'core/network/share/bloc_observer.dart';
+import 'features/home/driver/presentation/views/captain_layout_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = const SimpleBlocObserver();
 
   try {
-    // ✅ Initialize Firebase
-    await Firebase.initializeApp(
-      name: 'way_ios',
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print('✅ Firebase initialized');
-
     // ✅ Initialize SharedPreferences safely
     await CacheHelper.init();
     print('✅ SharedPreferences initialized');
+    await di.init();
 
     // ✅ Initialize Dio
     DioHelper.init();
     print('✅ Dio initialized');
 
     // ✅ Initialize Services
-    setupGetIt();
-    await FirebaseNotifications().initNotifications();
 
     // ✅ Get local data
     dynamic onBoarding = CacheHelper.getData(key: 'onBoarding');
@@ -163,7 +155,7 @@ class MyApp extends StatelessWidget {
             title: 'WAY',
             theme: ThemeData(
               fontFamily: 'Noto',
-              scaffoldBackgroundColor: backGroundColor,
+              scaffoldBackgroundColor: AppColor.backGroundColor,
             ),
             locale: Locale(
               context.read<LocalizationCubit>().currentLanguage,

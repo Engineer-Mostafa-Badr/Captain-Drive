@@ -1,5 +1,5 @@
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:flutter/material.dart';
 
 class ReportCaptainScreen extends StatelessWidget {
@@ -8,7 +8,7 @@ class ReportCaptainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: AppColor.backGroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -94,7 +94,8 @@ class ReportCaptainScreen extends StatelessWidget {
                           ),
                           Text(
                             '(Optional)',
-                            style: TextStyle(fontSize: 10, color: primaryColor),
+                            style: TextStyle(
+                                fontSize: 10, color: AppColor.primaryColor),
                           ),
                         ],
                       ),

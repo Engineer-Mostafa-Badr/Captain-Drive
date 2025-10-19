@@ -1,14 +1,14 @@
 import 'package:captain_drive/business_logic/captain_auth/captain_change_password_cubit/captain_change_password_cubit.dart';
 import 'package:captain_drive/business_logic/captain_auth/captain_get_profile_data_cubit/captain_get_profile_data_cubit.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/data/models/captain_get_data_model/captain_get_data_model.dart';
 import 'package:captain_drive/screens/captain/captain_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/localization/localization_cubit.dart';
+import '../../core/storage/cache_helper.dart';
 
 class CaptainChangePasswordScreen extends StatefulWidget {
   const CaptainChangePasswordScreen({super.key});
@@ -57,7 +57,7 @@ class _CaptainChangePasswordScreenState
         ),
       ],
       child: Scaffold(
-        backgroundColor: backGroundColor,
+        backgroundColor: AppColor.backGroundColor,
         body: SafeArea(
           child: BlocConsumer<CaptainChangePasswordCubit,
               CaptainChangePasswordState>(

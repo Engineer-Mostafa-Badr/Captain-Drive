@@ -1,16 +1,16 @@
 import 'package:captain_drive/business_logic/capatin_get_reservation_cubit/captain_get_reservation_cubit.dart';
 import 'package:captain_drive/business_logic/captain_make_reservation_offer_cubit/captain_make_reservation_offer_cubit.dart';
 import 'package:captain_drive/business_logic/driver_get_reservation_offer_cubit/driver_get_reservation_offer_cubit.dart';
-import 'package:captain_drive/components/constant.dart';
-import 'package:captain_drive/components/widget.dart';
+import 'package:captain_drive/core/components/constant.dart';
+import 'package:captain_drive/core/components/widget.dart';
 import 'package:captain_drive/data/models/captain_get_reservation_model.dart';
 import 'package:captain_drive/data/models/driver_get_offer_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../localization/localization_cubit.dart';
-import '../../shared/local/cach_helper.dart';
+import '../../core/storage/cache_helper.dart';
+import '../../core/localization/localization_cubit.dart';
 
 class CaptainReservationView extends StatefulWidget {
   const CaptainReservationView({super.key});
@@ -50,11 +50,11 @@ class _CaptainReservationViewState extends State<CaptainReservationView> {
     bool isArabic = LocalizationCubit.get(context).isArabic();
 
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: AppColor.backGroundColor,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: _refresh,
-          color: primaryColor,
+          color: AppColor.primaryColor,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
@@ -120,7 +120,8 @@ class _CaptainReservationViewState extends State<CaptainReservationView> {
                               isArabic
                                   ? 'ليس لديك أي حجوزات متاحة بالقرب منك'
                                   : 'You have No Reservations available Nearby',
-                              style: const TextStyle(color: primaryColor),
+                              style:
+                                  const TextStyle(color: AppColor.primaryColor),
                             ),
                           );
                         }

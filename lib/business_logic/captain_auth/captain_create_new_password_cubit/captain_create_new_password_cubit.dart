@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:captain_drive/data/models/captain_create_new_password_model.dart';
-import 'package:captain_drive/network/end_points.dart';
-import 'package:captain_drive/network/remote/dio_helper.dart';
+import 'package:captain_drive/core/network/end_points.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/network/dio_helper.dart';
 
 part 'captain_create_new_password_state.dart';
 
